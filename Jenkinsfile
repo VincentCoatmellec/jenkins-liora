@@ -19,7 +19,7 @@ pipeline {
           steps {
             sh '''
               . venv/bin/activate
-              python -m unittest
+              pytest test_main.py --maxfail=1 --disable-warnings -q
             '''
           }
         }
