@@ -5,15 +5,21 @@ pipeline {
       DOCKER_IMAGE = "datascientestapi"
       DOCKER_TAG = "v.${BUILD_ID}.0" 
     }
-    stages {
         stage('Building') {
           steps {
-                sh 'pip install -r requirements.txt'
+            sh '''
+              python3 -m venv venv
+              . venv/bin/activate
+              pip install -r requirements.txt
+            '''
           }
         }
         stage('Testing') {
           steps {
-                sh 'python -m unittest'
+            sh '''
+              . venv/bin/activate
+              python -m unittest
+            '''
           }
         }
         stage('Deploying') {
